@@ -572,7 +572,7 @@ PrefabInstance:
     - target: {fileID: 6256514797195506670, guid: 64d1efc86f82f834e847761034eda222,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 1.91
+      value: 3.72
       objectReference: {fileID: 0}
     - target: {fileID: 6256514797195506670, guid: 64d1efc86f82f834e847761034eda222,
         type: 3}
@@ -613,6 +613,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Ally
+      objectReference: {fileID: 0}
+    - target: {fileID: 8500315403682612938, guid: 64d1efc86f82f834e847761034eda222,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 64d1efc86f82f834e847761034eda222, type: 3}
@@ -686,12 +691,12 @@ PrefabInstance:
     - target: {fileID: 6919678222981322591, guid: 3be969c19f14c9144bdb013ad5f0767f,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8950361836291797360, guid: 3be969c19f14c9144bdb013ad5f0767f,
         type: 3}
       propertyPath: timeBetweenSpawn
-      value: 1
+      value: 5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3be969c19f14c9144bdb013ad5f0767f, type: 3}

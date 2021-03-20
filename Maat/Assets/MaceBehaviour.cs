@@ -2,23 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MaceBehaviour : WeaponBehaviour
+public class MaceBehaviour : MeleeWeaponBehaviour
 {
-    Animator maceAnimator;
-
-    // Start is called before the first frame update
-    void Start()
+    public override void Use()
     {
-        maceAnimator = GetComponent<Animator>();
-    }
-
-    public override void Attack()
-    {
-        maceAnimator.SetTrigger("Mace attack");
-    }
-
-    public override void OnTriggerEnter(Collider other)
-    {
-        base.OnTriggerEnter(other);
+        attackAnimator.SetTrigger("Mace attack");
     }
 }

@@ -8,11 +8,12 @@ public class FighterBehaviour : MonoBehaviour
     public float attackRange;
     public float attackSpeed;
 
-    public WeaponBehaviour weapon;
-    public Transform attackPoint;
+    protected List<FighterBehaviour> opponents;
 
     protected State state;
     protected float stoppingDistanceToEnemy;
+    protected float timeTillNextAttack;
+    protected LayerMask enemyLayerMask;
 
     public enum State
     {
@@ -27,16 +28,19 @@ public class FighterBehaviour : MonoBehaviour
     {
         state = State.Idle;
         stoppingDistanceToEnemy = attackRange * 2;
+        timeTillNextAttack = 0;
+
+        opponents = new List<FighterBehaviour>();
     }
 
-    protected List<T> LookForOpponent<T>(LayerMask opponentLayerMask)
+    protected List<FighterBehaviour> LookForOpponent(LayerMask opponentLayerMask)
     {
-        List<T> opponents = new List<T>();
+        List<FighterBehaviour> opponents = new List<FighterBehaviour>();
         var colliders = Physics.OverlapSphere(transform.position, detectionRange, opponentLayerMask);
 
         foreach (var collider in colliders)
         {
-            T opponent = collider.GetComponentInParent<T>();
+            FighterBehaviour opponent = collider.GetComponentInParent<FighterBehaviour>();
             if (opponent != null)
             {
                 opponents.Add(opponent);

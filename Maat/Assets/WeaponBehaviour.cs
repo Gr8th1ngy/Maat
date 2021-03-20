@@ -6,25 +6,21 @@ using UnityEngine.Events;
 public class WeaponBehaviour : MonoBehaviour
 {
     public float damage;
-    public UnityEvent killScored;
+    public UnityEvent KillScored;
 
-    public virtual void Attack()
+    public GameObject projectilePrefab;
+
+    public LayerMask TargetLayerMask { get; set; }
+
+    public virtual void Use()
     {
 
     }
 
-    public virtual void OnTriggerEnter(Collider other)
+    public virtual void InflictDamage()
     {
-        HealthSystem theirHealthSystem = other.gameObject.GetComponentInParent<HealthSystem>();
-
-        if (theirHealthSystem != null)
-        {
-            bool killed = theirHealthSystem.TakeDamage(damage);
-
-            if (killed)
-            {
-                killScored.Invoke();
-            }
-        }
+        var projectile = Instantiate(projectilePrefab, transform.position, GetComponentInParent<Transform>().rotation).GetComponent<ProjectileBehaviour>();
+        projectile.damage = damage;
+        projectile.KillScored = KillScored;
     }
 }

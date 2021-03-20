@@ -5,11 +5,15 @@ using UnityEngine;
 public class HealthSystem : MonoBehaviour
 {
     public float maxHealth;
+    public bool isDead;
+    public float timeBeforeDestroy;
+
     public GameObject healthbarPrefab;
     public GameObject deathEffectPrefab;
 
     HealthBarBehaviour myHealthBar;
     float currentHealth;
+    float timeUntilDestroy;
 
     // Start is called before the first frame update
     void Start()
@@ -17,16 +21,33 @@ public class HealthSystem : MonoBehaviour
         GameObject healthBarObject = Instantiate(healthbarPrefab, References.canvas.transform);
         myHealthBar = healthBarObject.GetComponent<HealthBarBehaviour>();
         currentHealth = maxHealth;
+        
+        isDead = false;
+        timeUntilDestroy = timeBeforeDestroy;
     }
 
     // Update is called once per frame
     void Update()
     {
-        // Make health bar reflect health
-        myHealthBar.ShowHealth(currentHealth / maxHealth);
+        if (isDead)
+        {
+            if (timeUntilDestroy <= 0)
+            {
+                Destroy(gameObject);
+            }
+            else
+            {
+                timeUntilDestroy -= Time.deltaTime;
+            }
+        }
+        else
+        {
+            // Make health bar reflect health
+            myHealthBar.ShowHealth(currentHealth / maxHealth);
 
-        // Health bar move to current position
-        myHealthBar.transform.position = Camera.main.WorldToScreenPoint(transform.position + Vector3.up * 1 + Vector3.forward * -1);
+            // Health bar move to current position
+            myHealthBar.transform.position = Camera.main.WorldToScreenPoint(transform.position + Vector3.up * 1 + Vector3.forward * -1);
+        }
     }
 
     private void OnDestroy()
@@ -49,7 +70,7 @@ public class HealthSystem : MonoBehaviour
                     Instantiate(deathEffectPrefab, transform.position, transform.rotation);
                 }
 
-                Destroy(gameObject);
+                MarkAsDead();
                 return true;
             }
         }
@@ -60,5 +81,12 @@ public class HealthSystem : MonoBehaviour
     public void KillMe()
     {
         TakeDamage(currentHealth);
+    }
+
+    void MarkAsDead()
+    {
+        isDead = true;
+        gameObject.SetActive(false);
+        OnDestroy();
     }
 }
