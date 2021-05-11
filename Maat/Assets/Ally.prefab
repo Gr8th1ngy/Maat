@@ -145,6 +145,7 @@ MonoBehaviour:
   attackRange: 0.75
   attackSpeed: 0.75
   weapon: {fileID: 4976189055916518806}
+  patrolPoint: {fileID: 0}
 --- !u!195 &7436350097006366894
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -181,7 +182,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHealth: 10
   isDead: 0
-  timeBeforeDestroy: 2
+  timeBeforeDestroy: 3
   healthbarPrefab: {fileID: 4678686989420319044, guid: 58b4e77051f8372428b4fd13e88267d8,
     type: 3}
   deathEffectPrefab: {fileID: 0}

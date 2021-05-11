@@ -9,6 +9,7 @@ public class FighterBehaviour : MonoBehaviour
     public float attackSpeed;
 
     protected List<FighterBehaviour> opponents;
+    public FighterBehaviour target;
 
     protected State state;
     protected float stoppingDistanceToEnemy;

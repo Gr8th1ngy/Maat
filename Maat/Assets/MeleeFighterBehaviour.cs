@@ -21,33 +21,25 @@ public class MeleeFighterBehaviour : FighterBehaviour
     // Update is called once per frame
     protected virtual void Update()
     {
-        FighterBehaviour target = null;
 
-        if (opponents.Count > 0)
+        if (target != null)
         {
-            target = opponents[0];
             var targetHealthSystem = target.GetComponentInParent<HealthSystem>();
 
             if (targetHealthSystem == null || targetHealthSystem.isDead)
             {
                 state = State.Idle;
+                target = null;
             }
         }
 
         if (state == State.Idle)
         {
-            agent.destination = originalPosition;
-            agent.stoppingDistance = 0;
-            opponents = LookForOpponent(enemyLayerMask);
-
-            if (opponents.Count > 0)
-            {
-                state = State.MoveToOpponent;
-            }
+            Idling();
         }
         else if (state == State.MoveToOpponent)
         {
-            GoToOpponent(target);
+            GoToOpponent();
         }
         else if (state == State.Attack)
         {
@@ -55,11 +47,23 @@ public class MeleeFighterBehaviour : FighterBehaviour
         }
         else if (state == State.RotateToOpponent)
         {
-            RotateToOpponent(target);
+            RotateToOpponent();
         }
     }
 
-    protected void GoToOpponent(FighterBehaviour target)
+    protected void Idling()
+    {
+        agent.destination = originalPosition;
+        agent.stoppingDistance = 0;
+        opponents = LookForOpponent(enemyLayerMask);
+
+        if (opponents.Count > 0)
+        {
+            ChooseOpponent();
+        }
+    }
+
+    protected void GoToOpponent()
     {
         agent.destination = target.transform.position;
         agent.stoppingDistance = stoppingDistanceToEnemy;
@@ -83,7 +87,7 @@ public class MeleeFighterBehaviour : FighterBehaviour
         }
     }
 
-    protected void RotateToOpponent(FighterBehaviour target)
+    protected void RotateToOpponent()
     {
         Vector3 targetDirection = target.transform.position - transform.position;
         float singleStep = agent.angularSpeed * Mathf.Deg2Rad * Time.deltaTime;
@@ -97,6 +101,12 @@ public class MeleeFighterBehaviour : FighterBehaviour
             state = State.Attack;
         }
     }
+
+    protected virtual void ChooseOpponent()
+    {
+
+    }
+
     public override void KillScored()
     {
         opponents.Clear();

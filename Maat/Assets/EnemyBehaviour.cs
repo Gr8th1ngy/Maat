@@ -27,4 +27,17 @@ public class EnemyBehaviour : MeleeFighterBehaviour
             Destroy(gameObject);
         }
     }
+
+    protected override void ChooseOpponent()
+    {
+        foreach (var potentialTarget in opponents)
+        {
+            if (potentialTarget.GetComponent<AllyBehaviour>().target == this)
+            {
+                target = potentialTarget;
+                state = State.MoveToOpponent;
+                break;
+            }
+        }
+    }
 }

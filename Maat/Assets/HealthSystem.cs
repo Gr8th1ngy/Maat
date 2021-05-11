@@ -86,7 +86,20 @@ public class HealthSystem : MonoBehaviour
     void MarkAsDead()
     {
         isDead = true;
-        gameObject.SetActive(false);
+
+        //hide without destroying so others can switch target
+        var renderers = GetComponentsInChildren<MeshRenderer>();
+        foreach (var renderer in renderers)
+        {
+            renderer.enabled = false;
+        }
+
+        var colliders = GetComponentsInChildren<Collider>();
+        foreach (var collider in colliders)
+        {
+            collider.enabled = false;
+        }
+
         OnDestroy();
     }
 }

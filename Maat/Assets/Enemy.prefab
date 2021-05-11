@@ -181,7 +181,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHealth: 5
   isDead: 0
-  timeBeforeDestroy: 2
+  timeBeforeDestroy: 3
   healthbarPrefab: {fileID: 4678686989420319044, guid: 58b4e77051f8372428b4fd13e88267d8,
     type: 3}
   deathEffectPrefab: {fileID: 0}
